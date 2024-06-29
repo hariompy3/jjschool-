@@ -1,0 +1,24 @@
+{% load custom_filters %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Grade Details</title>
+</head>
+<body>
+     
+    <h1>Your Class Assignments</h1>
+    <ul>
+    {% for assignment in assignments %}
+        <li>
+            {{ assignment.subject.name }} - {{ assignment.classroom.name }}
+            <a href="{% url 'manage_results' assignment.id %}">Manage Results</a>
+        </li>
+    {% empty %}
+        <li>No assignments found.</li>
+    {% endfor %}
+    </ul>
+    
+</body>
+</html>

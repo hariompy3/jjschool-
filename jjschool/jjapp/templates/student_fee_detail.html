@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fee Management for {{ student.first_name }} {{ student.last_name }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+        h1, h2 { color: #333; }
+        p { margin: 10px 0; }
+        form { margin-top: 20px; }
+        label { display: block; margin-bottom: 5px; }
+        input[type="number"] { width: 200px; padding: 5px; }
+        button { padding: 10px 15px; background-color: #4CAF50; color: white; border: none; cursor: pointer; margin-top: 10px; }
+        button:hover { background-color: #45a049; }
+    </style>
+</head>
+<body>
+    <h1>Fee Management for {{ student.first_name }} {{ student.last_name }}</h1>
+
+    <p><strong>Roll Number:</strong> {{ student.roll_number }}</p>
+    <p><strong>Grade:</strong> {{ student.grade.name }}</p>
+    <p><strong>Total Fee:</strong> {{ student.total_fee }}</p>
+    <p><strong>Remaining Fee:</strong> {{ student.remaining_fee }}</p>
+    <p><strong>Advanced Payment:</strong> {{ student.advanced_payment }}</p>
+    <p><strong>Actual Remaining Fee:</strong> {{ student.get_actual_remaining_fee }}</p>
+
+    <h2>Record Fee Payment</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Record Payment</button>
+    </form>
+
+    <p><a href="{% url 'student_fee_list' %}">Back to Student List</a></p>
+
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+</body>
+</html>

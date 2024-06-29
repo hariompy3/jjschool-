@@ -1,0 +1,73 @@
+<!-- profile.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile</title>
+    <style>
+        /* CSS styles as before */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .heading {
+            text-align: center;
+            color: #333;
+        }
+        .profile-info {
+            margin-bottom: 10px;
+        }
+        .profile-info strong {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        .back-button {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .back-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="heading">Student Profile</h1>
+        <div class="profile-info">
+            <strong>Full Name:</strong> {{ student.first_name }} {{ student.last_name }}
+        </div>
+        <div class="profile-info">
+            <strong>Class:</strong> {{ student.grade }}
+        </div>
+        <div class="profile-info">
+            <strong>Class Teacher:</strong> {{ student.classroom.class_teacher }}
+        </div>
+        <div class="profile-info">
+            <strong>Aadhar Number:</strong> {{ student.adhar_num }}
+        </div>
+        <div class="profile-info">
+            <strong>Remaining Fee:</strong> {{ student.remaining_fee }}
+        </div>
+        <div class="profile-info">
+            <strong>Role Number:</strong> {{ student.roll_number }}
+        </div>
+        <a href="{% url 'list_students' %}" class="back-button">Back to List</a>
+    </div>
+</body>
+</html>

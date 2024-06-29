@@ -1,0 +1,22 @@
+{% load custom_filters %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Grade Details</title>
+</head>
+<body>
+    
+    <h1>Exams for {{ assignment.subject.name }} - {{ assignment.classroom.name }}</h1>
+    <ul>
+    {% for exam in exams %}
+        <li>
+            {{ exam.name }} ({{ exam.date }})
+            <a href="{% url 'enter_results' assignment.id exam.id %}">Enter Results</a>
+        </li>
+    {% empty %}
+        <li>No exams found for this academic year.</li>
+    {% endfor %}
+    </ul>
+    
+</body>
+</html>

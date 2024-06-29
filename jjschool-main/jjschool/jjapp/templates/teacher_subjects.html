@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Assigned Subjects</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        .messages {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            background-color: #f8f8f8;
+        }
+        .messages .success {
+            color: green;
+        }
+        .messages .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Assigned Subjects</h1>
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <ul>
+    {% for assignment in assignment %}
+        <li>
+            {{ assignment.subject.name }} (Grade: {{ assignment.grade.name }})
+            <a href="{% url 'remove_subject' assignment.id %}">Remove</a>
+        </li>
+    {% empty %}
+        <li>No subjects assigned yet.</li>
+    {% endfor %}
+    </ul>
+
+    {% if can_add_more %}
+        <a href="{% url 'add_subject' %}">Add Subject</a>
+    {% else %}
+        <p>You've reached the maximum number of subject assignments.</p>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam List</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 20px; }
+        h1 { color: #333; }
+        ul { list-style-type: none; padding: 0; }
+        li { margin-bottom: 10px; }
+        a { color: #1a73e8; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1>Exam List</h1>
+    <ul>
+        {% for exam in exams %}
+            <li><a href="{% url 'teacher_classes' exam.id %}">{{ exam.name }} - {{ exam.date }}</a></li>
+        {% empty %}
+            <li>No exams available.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

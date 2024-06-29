@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resolve Complaint</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+            color: #212121;
+        }
+        .container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+        .material-icons {
+            margin-right: 0.5rem;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-field {
+            margin-bottom: 1.5rem;
+        }
+        label {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        input[type="checkbox"] {
+            margin-right: 0.5rem;
+        }
+        .complaint-details {
+            background-color: #f5f5f5;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+        }
+        .complaint-details h2 {
+            font-size: 18px;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+        .complaint-details p {
+            margin: 0 0 0.5rem;
+            font-size: 14px;
+        }
+        button {
+            background-color: #212121;
+            color: white;
+            border: none;
+            padding: 0.75rem 1rem;
+            font-size: 16px;
+            font-weight: 500;
+            text-transform: uppercase;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        button:hover {
+            background-color: #424242;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="material-icons">report_problem</i> Resolve Complaint</h1>
+        <div class="complaint-details">
+            <h2>Complaint Details</h2>
+            <p><strong>ID:</strong> {{ complaint.id }}</p>
+            <p><strong>Subject:</strong> {{ complaint.subject }}</p>
+            <p><strong>Description:</strong> {{ complaint.description }}</p>
+            <p><strong>Date Filed:</strong> {{ complaint.date_filed }}</p>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-field">
+                <label for="id_is_resolved">
+                    <input type="checkbox" name="is_resolved" id="id_is_resolved">
+                    Mark as Resolved
+                </label>
+            </div>
+            <button type="submit"><i class="material-icons">check_circle</i> Update Complaint</button>
+        </form>
+    </div>
+</body>
+</html>

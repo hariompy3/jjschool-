@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Fee Management</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+        h1 { color: #333; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        input[type="text"] { padding: 5px; width: 200px; }
+        button { padding: 5px 10px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #45a049; }
+    </style>
+</head>
+<body>
+    <h1>Student Fee Management</h1>
+
+    <form method="get" action="{% url 'student_fee_list' %}">
+        <input type="text" name="query" value="{{ query }}" placeholder="Search students...">
+        <button type="submit">Search</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Roll Number</th>
+                <th>Name</th>
+                <th>Grade</th>
+                <th>Total Fee</th>
+                <th>Actual Remaining Fee</th>
+                <th>Advanced Payment</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.roll_number }}</td>
+                <td>{{ student.first_name }} {{ student.last_name }}</td>
+                <td>{{ student.grade.name }}</td>
+                <td>{{ student.total_fee }}</td>
+                <td>{{ student.get_actual_remaining_fee }}</td>
+                <td>{{ student.advanced_payment }}</td>
+                <td><a href="{% url 'student_fee_detail' student.pk %}">Manage Fee</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

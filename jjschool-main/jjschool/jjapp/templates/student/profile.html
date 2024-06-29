@@ -1,0 +1,26 @@
+<!-- student/profile.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Profile</title>
+</head>
+<body>
+    <h1>Student Profile</h1>
+    <p><strong>Name:</strong> {{ student.first_name }} {{ student.last_name }}</p>
+    <p><strong>Roll Number:</strong> {{ student.roll_number }}</p>
+    <p><strong>Class:</strong> {{ student.grade }}</p>
+    <p><strong>Attendance Percentage:</strong> {{ student.attendance_percentage }}%</p>
+    <p><strong>Aadhaar Number:</strong> {{ student.adhar_num }}</p>
+    <p><strong>Admission Date:</strong> {{ student.admission_date }}</p>
+    <p><strong>Performance:</strong> {{ student.performance }}</p>
+    <p><strong>Attendance Records:</strong> {{ student.attendance_records }}</p>
+    <p><strong>Disciplinary Actions:</strong> {{ student.disciplinary_actions }}</p>
+    <p><strong>Total Fee:</strong> {{ student.total_fee }}</p>
+    <p><strong>Remaining Fee:</strong> {{ student.remaining_fee }}</p>
+    {% if student.profile_photo %}
+        <p><img src="{{ student.profile_photo.url }}" alt="Profile Photo" width="150"></p>
+    {% else %}
+        <p>No profile photo available.</p>
+    {% endif %}
+</body>
+</html>

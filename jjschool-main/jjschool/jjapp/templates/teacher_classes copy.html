@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Classes for {{ exam.name }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 20px; }
+        h1 { color: #333; }
+        ul { list-style-type: none; padding: 0; }
+        li { margin-bottom: 10px; }
+        a { color: #1a73e8; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1>Your Classes for {{ exam.name }}</h1>
+    <ul>
+        {% for assignment in assignments %}
+            <li><a href="{% url 'class_students' exam.id assignment.id %}">
+                {{ assignment.grade.name }} - {{ assignment.subject.name }}
+            </a></li>
+        {% empty %}
+            <li>You have no assigned classes.</li>
+        {% endfor %}
+    </ul>
+    <p><a href="{% url 'exam_list' %}">Back to Exam List</a></p>
+</body>
+</html>

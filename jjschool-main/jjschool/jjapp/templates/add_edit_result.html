@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add/Edit Result for {{ student.user.get_full_name }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 20px; }
+        h1 { color: #333; }
+        form { max-width: 400px; margin: 0 auto; }
+        label { display: block; margin-bottom: 5px; }
+        input[type="number"] { width: 100%; padding: 8px; margin-bottom: 10px; }
+        input[type="submit"] { background-color: #1a73e8; color: white; border: none; padding: 10px 15px; cursor: pointer; }
+        input[type="submit"]:hover { background-color: #155db1; }
+        a { color: #1a73e8; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1>Add/Edit Result for {{ student.user.get_full_name }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save Result">
+    </form>
+    <p><a href="{% url 'class_students' exam.id assignment.id %}">Back to Student List</a></p>
+</body>
+</html>

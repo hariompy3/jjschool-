@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ assignment.grade.name }} - {{ assignment.subject.name }} Results</title>
+    <style>
+        /* ... (keep the existing styles) ... */
+    </style>
+</head>
+<body>
+    {% load result_filters %}
+    <h1>{{ assignment.grade.name }} - {{ assignment.subject.name }}</h1>
+    <table>
+        <tr>
+            <th>Student</th>
+            <th>Marks</th>
+            <th>Grade</th>
+            <th>Action</th>
+        </tr>
+        {% for student in assignment.grade.students.all %}
+            {% with result=results|filter_by_student:student %}
+            <tr>
+                <td>{{ student.first_name }} {{ student.last_name }}</td>
+                <td>
+                    {% if result %}
+                        {{ result.marks }}
+                    {% else %}
+                        Not graded
+                    {% endif %}
+                </td>
+                <td>
+                    {% if result %}
+                        {{ result.grade }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'add_edit_result' assignment.id student.user_id %}">
+                        {% if result %}Edit{% else %}Add{% endif %} Result
+                    </a>
+                </td>
+            </tr>
+            {% endwith %}
+        {% endfor %}
+    </table>
+    <p><a href="{% url 'teacher_results_main' %}">Back to Classes</a></p>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Complaint</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #212121;
+            --background-color: #f5f5f5;
+            --surface-color: #ffffff;
+            --on-surface-color: #212121;
+            --on-background-color: #212121;
+            --error-color: #B00020;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--background-color);
+            color: var(--on-background-color);
+        }
+        .container {
+            background-color: var(--surface-color);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            margin: 1rem;
+        }
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            color: var(--on-surface-color);
+        }
+        .material-icons {
+            margin-right: 0.5rem;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-field {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        label {
+            font-size: 1rem;
+            font-weight: 400;
+            color: rgba(0, 0, 0, 0.6);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        select, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            border: 1px solid rgba(0, 0, 0, 0.23);
+            border-radius: 4px;
+            background-color: var(--surface-color);
+            transition: border-color 0.2s ease-out, box-shadow 0.2s ease-out;
+        }
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            padding-right: 2.5rem;
+        }
+        select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(33, 33, 33, 0.2);
+        }
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease-out, box-shadow 0.2s ease-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1rem;
+            align-self: flex-end;
+        }
+        button:hover {
+            background-color: #424242;
+        }
+        button:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(33, 33, 33, 0.2);
+        }
+        .errorlist {
+            color: var(--error-color);
+            font-size: 0.75rem;
+            list-style-type: none;
+            padding: 0;
+            margin: 0.25rem 0 0;
+        }
+        @media (max-width: 600px) {
+            .container {
+                margin: 0;
+                max-width: 100%;
+                border-radius: 0;
+                box-shadow: none;
+            }
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="material-icons">create</i> File a Complaint</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-field">
+                <label for="{{ form.topic.id_for_label }}">Topic</label>
+                <select id="{{ form.topic.id_for_label }}" name="{{ form.topic.html_name }}" required>
+                    <option value="" disabled selected>Select a topic</option>
+                    {% for value, label in form.fields.topic.choices %}
+                        <option value="{{ value }}">{{ label }}</option>
+                    {% endfor %}
+                </select>
+                {% if form.topic.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.topic.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <div class="form-field">
+                <label for="{{ form.description.id_for_label }}">Description</label>
+                <textarea id="{{ form.description.id_for_label }}" name="{{ form.description.html_name }}" required></textarea>
+                {% if form.description.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.description.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <button type="submit"><i class="material-icons">send</i> Submit</button>
+        </form>
+    </div>
+</body>
+</html>
